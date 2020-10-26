@@ -24,5 +24,7 @@ class All_Customer(models.Model):
 class Chit_Batches(models.Model):
     Sl_No = models.AutoField(primary_key=True)
     Batch_No = models.IntegerField()
-
-    
+    Total_Fund = models.IntegerField()
+    Start_Date = models.DateField()
+    End_Date = models.DateField()
+    Number_of_Customers = models.IntegerField()
