@@ -12,10 +12,9 @@ class All_Customer(models.Model):
     Phone_No = models.CharField(max_length=10)
     
     def save(self,*args,**kwargs):
-        # ph = str(self.Phone_No)
-        # ph = ph[-4:]
-        d = self.Date.strftime("%Y%m%d")
-        self.Account_No = str(d) + str(self.Sl_No)
+        ph = str(self.Phone_No)
+        ph = ph[-2:]
+        self.Account_No = str(self.Date.strftime("%Y%m%d")) + str(ph)
         print(self.Account_No)
         super(All_Customer, self).save(*args, **kwargs)
     
