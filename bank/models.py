@@ -14,7 +14,7 @@ class All_Customer(models.Model):
     def save(self,*args,**kwargs):
         ph = str(self.Phone_No)
         ph = ph[-2:]
-        self.Account_No = str(self.Date.strftime("%Y%m%d")) + str(ph)
+        self.Account_No = str(self.Date.strftime("%Y%m%d")) + str(ph)   #to eliminate hyphen and concatenate
         print(self.Account_No)
         super(All_Customer, self).save(*args, **kwargs)
     
