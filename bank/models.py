@@ -28,3 +28,4 @@ class Chit_Batches(models.Model):
     Start_Date = models.DateField()
     End_Date = models.DateField()
     Number_of_Customers = models.IntegerField()
+    Status = models.BooleanField()
