@@ -15,7 +15,8 @@ class All_Customer(models.Model):
         ph = str(self.Phone_No)
         ph = ph[-2:]
         d = str(self.Date)
-        self.Account_No = str(d.strftime("%Y%m%d")) + str(ph)   #to eliminate hyphen and concatenate
+        d = d.replace("-","")
+        self.Account_No = d + str(ph)   #to eliminate hyphen and concatenate
         print(self.Account_No)
         super(All_Customer, self).save(*args, **kwargs)
     
@@ -41,3 +42,8 @@ class Savings_Customer(models.Model):
     Sl_No = models.AutoField(primary_key=True)
     Date_Added = models.DateField()
     Name = models.CharField(max_length= 25)
+    Account_No = models.ForeignKey(All_Customer , on_delete = models.CASCADE)
+    Total_Savings = models.IntegerField()
+
+    def __str__(self):
+        return self.Name
