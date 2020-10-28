@@ -15,8 +15,8 @@ class All_Customer(models.Model):
         ph = str(self.Phone_No)
         ph = ph[-2:]
         d = str(self.Date)
-        d = d.replace("-","")
-        self.Account_No = d + str(ph)   #to eliminate hyphen and concatenate
+        d = d.replace("-","")   #to eliminate hyphen and concatenate
+        self.Account_No = d + str(ph)   
         super(All_Customer, self).save(*args, **kwargs)
     
     class Meta:
@@ -50,6 +50,9 @@ class Savings_Customer(models.Model):
     def __str__(self):
         return self.Name
 
+    def save(self, *args, **kwargs):
+        pass
+
 class Credit_Customer(models.Model):
     Sl_No = models.AutoField(primary_key=True)
     Date_Credited = models.DateField()
@@ -70,3 +73,13 @@ class Chit_Fund_Customer(models.Model):
 
     def __str__(self):
         return self.Name
+
+class Savings_Customer_Savings(models.Model):
+    Sl_No = models.AutoField(primary_key=True)
+    Date = models.DateField()
+    Name = models.CharField(max_length=25)
+    Account_No = models.ForeignKey(All_Customer , on_delete = models.CASCADE) 
+    Amount = models.IntegerField()
+
+    class Meta:
+        unique_together = (("Sl_No","Amount"),)
