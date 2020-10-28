@@ -45,7 +45,7 @@ class Savings_Customer(models.Model):
     Date_Added = models.DateField()
     Name = models.CharField(max_length= 25)
     Account_No = models.ForeignKey(All_Customer , on_delete = models.CASCADE)
-    Total_Savings = models.IntegerField()
+    Total_Savings = models.IntegerField(editable=False)
 
     def __str__(self):
         return self.Name
@@ -79,7 +79,17 @@ class Savings_Customer_Savings(models.Model):
     Date = models.DateField()
     Name = models.CharField(max_length=25)
     Account_No = models.ForeignKey(All_Customer , on_delete = models.CASCADE) 
-    Amount = models.IntegerField()
+    Amount_Deposited = models.IntegerField()
 
     class Meta:
-        unique_together = (("Sl_No","Amount"),)
+        unique_together = (("Sl_No","Amount_Deposited"),)
+
+class Credit_Customer_Credit(models.Model):
+    Sl_No = models.AutoField(primary_key=True)
+    Date = models.DateField()
+    Name = models.CharField(max_length=25)
+    Account_No = models.ForeignKey(All_Customer , on_delete = models.CASCADE) 
+    Amount_Credited = models.IntegerField()
+
+    class Meta:
+        unique_together = (("Sl_No","Amount_Credited"),)

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import All_Customer,Chit_Batches,Savings_Customer,Credit_Customer,Chit_Fund_Customer,Savings_Customer_Savings
+from .models import All_Customer,Chit_Batches,Savings_Customer,Credit_Customer,Chit_Fund_Customer,Savings_Customer_Savings,Credit_Customer_Credit
 # Register your models here.
 
 class All_CustomerAdmin(admin.ModelAdmin):
@@ -23,5 +23,9 @@ class Chit_Fund_CustomerAdmin(admin.ModelAdmin):
 admin.site.register(Chit_Fund_Customer,Chit_Fund_CustomerAdmin)
 
 class Savings_Customer_SavingsAdmin(admin.ModelAdmin):
-    list_display = ('Sl_No','Date','Name','Account_No','Amount')
+    list_display = ('Sl_No','Date','Name','Account_No','Amount_Deposited')
 admin.site.register(Savings_Customer_Savings,Savings_Customer_SavingsAdmin)
+
+class Credit_Customer_CreditAdmin(admin.ModelAdmin):
+    list_display = ('Sl_No','Date','Name','Account_No','Amount_Credited')
+admin.site.register(Credit_Customer_Credit,Credit_Customer_CreditAdmin)
