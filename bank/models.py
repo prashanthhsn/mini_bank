@@ -17,7 +17,6 @@ class All_Customer(models.Model):
         d = str(self.Date)
         d = d.replace("-","")
         self.Account_No = d + str(ph)   #to eliminate hyphen and concatenate
-        print(self.Account_No)
         super(All_Customer, self).save(*args, **kwargs)
     
     class Meta:
@@ -35,6 +34,9 @@ class Chit_Batches(models.Model):
     Number_of_Customers = models.IntegerField()
     Status = models.BooleanField()
 
+    class Meta:
+        unique_together = (("Sl_No","Batch_No"),)
+    
     def __str__(self):
         return str(self.Batch_No)
 
@@ -44,6 +46,27 @@ class Savings_Customer(models.Model):
     Name = models.CharField(max_length= 25)
     Account_No = models.ForeignKey(All_Customer , on_delete = models.CASCADE)
     Total_Savings = models.IntegerField()
+
+    def __str__(self):
+        return self.Name
+
+class Credit_Customer(models.Model):
+    Sl_No = models.AutoField(primary_key=True)
+    Date_Credited = models.DateField()
+    Name = models.CharField(max_length= 25)
+    Account_No = models.ForeignKey(All_Customer , on_delete = models.CASCADE)
+    Interest_Rate = models.CharField(max_length=5)
+    Total_Credit = models.IntegerField()
+
+    def __str__(self):
+        return self.Name
+
+class Chit_Fund_Customer(models.Model):
+    Sl_No = models.AutoField(primary_key=True)
+    Date_Credited = models.DateField()
+    Name = models.CharField(max_length= 25)
+    Account_No = models.ForeignKey(All_Customer , on_delete = models.CASCADE)
+    Batch_No = models.ForeignKey(Chit_Batches, on_delete = models.CASCADE)
 
     def __str__(self):
         return self.Name
