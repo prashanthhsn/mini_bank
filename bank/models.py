@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.signals import post_save
 
 
 # Create your models here.
@@ -50,9 +51,6 @@ class Savings_Customer(models.Model):
     def __str__(self):
         return self.Name
 
-    def save(self, *args, **kwargs):
-        pass
-
 class Credit_Customer(models.Model):
     Sl_No = models.AutoField(primary_key=True)
     Date_Credited = models.DateField()
@@ -83,6 +81,17 @@ class Savings_Customer_Savings(models.Model):
 
     class Meta:
         unique_together = (("Sl_No","Amount_Deposited"),)
+
+    def update_thread(self, sender, **kwargs):
+        instance = kwargs['instance']
+        created = kwargs['created']
+        raw = kwargs['raw']
+        if created and not raw:
+            instance.thread.Total_Savings += self.Amount_Deposited
+            instance.thread.save()
+    
+    post_save.connect(update_thread, sender=Savings_Customer_Savings)
+
 
 class Credit_Customer_Credit(models.Model):
     Sl_No = models.AutoField(primary_key=True)
