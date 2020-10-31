@@ -2,27 +2,23 @@
     background: cadetblue;
 }
 .container-fluid {
-    margin-top: 35px;
-    padding-left: 50px;
-    
+    margin: 45px;  
 }
 
 .container-sm {
     padding-top: 100px;
-    padding-left: 55px;
-    
+    padding-left: 55px; 
 }
 
 .container-xs {
     position: absolute;
-    right: -0.75px;
-    /* width: 100px;
-    bottom: 270px; */
-    padding-top: 100px;
-    
+    right: 0.75px;
+    width: 150px;
+    bottom: 270px;
+    padding-top: 100px; 
 }
 
 .container-md {
-   padding-top: 270px;
+   padding-top: 300px;
    padding-left: 50px;
 }
