@@ -39,18 +39,15 @@ class Chit_Batches(models.Model):
     def __str__(self):
         return str(self.Batch_No)
 
-class Savings_Customer(models.Model):
+class Saving_Customer(models.Model):
     Sl_No = models.AutoField(primary_key=True)
-    Date_Added = models.DateField(auto_now_add= True )
-    Name = models.CharField(editable=False, max_length=25)
+    Date_Credited = models.DateField()
+    Name = models.CharField(max_length= 25)
     Account_No = models.ForeignKey(All_Customer , on_delete = models.CASCADE)
-    Total_Savings = models.IntegerField(editable=False, default= 0)
+    Total_Savings= models.IntegerField()
 
     def __str__(self):
-        return self.Name
-
-    def save(self, *args, **kwargs):
-        pass
+        return self.Account_No
 
     
 class Credit_Customer(models.Model):
