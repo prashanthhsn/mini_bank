@@ -72,8 +72,6 @@ class Credit_Customer(models.Model):
     def __str__(self):
         return str(self.Account_No)
     
-
-
 class Chit_Fund_Customer(models.Model):
     Date_Credited = models.DateField()
     Name = models.CharField(max_length= 25)
