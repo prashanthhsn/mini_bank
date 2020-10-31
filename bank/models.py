@@ -1,11 +1,10 @@
 from django.db import models
+from django.shortcuts import get_object_or_404
 
-# Create your models here.
 class All_Customer(models.Model):
-    Sl_No = models.AutoField(primary_key=True)
     Date = models.DateField()
     Name = models.CharField(max_length= 25)
-    Account_No = models.CharField(editable=False,blank=False,max_length=13,null=True)
+    Account_No = models.CharField(primary_key=True,editable=False,blank=False,max_length=13)
     Photo = models.ImageField(upload_to ='media' )
     Aadhar_No = models.CharField(max_length=14)
     Phone_No = models.CharField(max_length=10)
@@ -17,52 +16,65 @@ class All_Customer(models.Model):
         d = d.replace("-","")   #to eliminate hyphen and concatenate
         self.Account_No = d + str(ph)   
         super(All_Customer, self).save(*args, **kwargs)
-
-    class Meta:
-        unique_together = (("Sl_No","Account_No"),)
     
     def __str__(self):
-        return self.Name
+        return (self.Account_No+" "+self.Name)
     
 class Chit_Batches(models.Model):
-    Sl_No = models.AutoField(primary_key=True)
-    Batch_No = models.IntegerField()
+    Batch_No = models.IntegerField(primary_key= True)
     Total_Fund = models.IntegerField()
     Start_Date = models.DateField()
     End_Date = models.DateField()
     Number_of_Customers = models.IntegerField()
     Status = models.BooleanField()
 
-    class Meta:
-        unique_together = (("Sl_No","Batch_No"),)
-    
     def __str__(self):
         return str(self.Batch_No)
 
 class Saving_Customer(models.Model):
-    Sl_No = models.AutoField(primary_key=True)
-    Date_Credited = models.DateField()
-    Name = models.CharField(max_length= 25)
-    Account_No = models.ForeignKey(All_Customer , on_delete = models.CASCADE)
-    Total_Savings= models.IntegerField()
+    Date_Credited = models.DateField(auto_now=True,editable=False)
+    Name = models.CharField(editable=False,blank=True,max_length= 25)
+    Select_Account_No = models.ForeignKey(All_Customer , on_delete = models.CASCADE)
+    Account_No =  models.IntegerField(editable=False)
+    Total_Savings= models.IntegerField(default= 0, blank= True)
+
+    def save(self, *args, **kwargs):
+        account_no = str(self.Select_Account_No)
+        account_no = account_no.split(" ")
+        print(account_no[0])
+        obj=get_object_or_404(All_Customer,Account_No = account_no[0])
+        print(obj.Name)
+        self.Name = obj.Name
+        self.Account_No = account_no[0]
+        super(Saving_Customer, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.Account_No
-
-    
+        return str(self.Account_No)
+        
 class Credit_Customer(models.Model):
-    Sl_No = models.AutoField(primary_key=True)
-    Date_Credited = models.DateField()
-    Name = models.CharField(max_length= 25)
-    Account_No = models.ForeignKey(All_Customer , on_delete = models.CASCADE)
-    Interest_Rate = models.CharField(max_length=5)
-    Total_Credit = models.IntegerField()
+    Date_Credited = models.DateField(auto_now=True,editable=False)
+    Name = models.CharField(editable=False,blank=True,max_length= 25)
+    Select_Account_No = models.ForeignKey(All_Customer , on_delete = models.CASCADE)
+    Account_No =  models.IntegerField(editable=False)
+    Total_Credit= models.IntegerField(default= 0, blank= True)
+    Interest_Rate = models.IntegerField(default=0)
+
+    def save(self, *args, **kwargs):
+        account_no = str(self.Select_Account_No)
+        account_no = account_no.split(" ")
+        print(account_no[0])
+        obj=get_object_or_404(All_Customer,Account_No = account_no[0])
+        print(obj.Name)
+        self.Name = obj.Name
+        self.Account_No = account_no[0]
+        super(Credit_Customer, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.Account_No
+        return str(self.Account_No)
+    
+
 
 class Chit_Fund_Customer(models.Model):
-    Sl_No = models.AutoField(primary_key=True)
     Date_Credited = models.DateField()
     Name = models.CharField(max_length= 25)
     Account_No = models.ForeignKey(All_Customer , on_delete = models.CASCADE)
@@ -72,21 +84,11 @@ class Chit_Fund_Customer(models.Model):
         return self.Name
 
 class Savings_Customer_Savings(models.Model):
-    Sl_No = models.AutoField(primary_key=True)
     Date = models.DateField()
-    Name = models.CharField(max_length=25)
-    Account_No = models.ForeignKey(All_Customer , on_delete = models.CASCADE) 
+    Account_No = models.IntegerField()
     Amount_Deposited = models.IntegerField()
 
-    class Meta:
-        unique_together = (("Sl_No","Amount_Deposited"),)
-
 class Credit_Customer_Credit(models.Model):
-    Sl_No = models.AutoField(primary_key=True)
     Date = models.DateField()
-    Name = models.CharField(max_length=25)
-    Account_No = models.ForeignKey(All_Customer , on_delete = models.CASCADE) 
+    Account_No = models.IntegerField()
     Amount_Credited = models.IntegerField()
-
-    class Meta:
-        unique_together = (("Sl_No","Amount_Credited"),)
