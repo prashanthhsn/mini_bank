@@ -41,9 +41,7 @@ class Saving_Customer(models.Model):
     def save(self, *args, **kwargs):
         account_no = str(self.Select_Account_No)
         account_no = account_no.split(" ")
-        print(account_no[0])
         obj=get_object_or_404(All_Customer,Account_No = account_no[0])
-        print(obj.Name)
         self.Name = obj.Name
         self.Account_No = account_no[0]
         super(Saving_Customer, self).save(*args, **kwargs)
@@ -62,9 +60,7 @@ class Credit_Customer(models.Model):
     def save(self, *args, **kwargs):
         account_no = str(self.Select_Account_No)
         account_no = account_no.split(" ")
-        print(account_no[0])
         obj=get_object_or_404(All_Customer,Account_No = account_no[0])
-        print(obj.Name)
         self.Name = obj.Name
         self.Account_No = account_no[0]
         super(Credit_Customer, self).save(*args, **kwargs)
