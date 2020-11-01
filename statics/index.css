@@ -1,9 +1,11 @@
 .backg{
     background: cadetblue;
 }
-.container {
-    margin: 45px;
+
+.container-fluid {
+    margin: 35px;
 }
+
 
 .container-sm {
     padding-top: 100px;
@@ -21,4 +23,13 @@
 .container-md {
    padding-top: 300px;
    padding-left: 50px;
+}
+
+h5 {
+    font-style: italic;
+    font-size: large;
+}
+
+h4 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
