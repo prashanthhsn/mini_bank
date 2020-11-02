@@ -1,109 +1,130 @@
 <!doctype html>
 <html lang="en">
-  <head> {% load static%}
-    <title>Create_Customer</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="{% static 'Create_Customer.css' %}">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script type="text/javascript">
-      function validate() {
-          var name = document.getElementById("name").value;
-          var text1 = document.getElementById("text1").value;
-          var text2 = document.getElementById("text2").value;
-          var photo = document.getElementById("photo").value;
-          var regx = /^[6-9]\d{9}$/;
-          var regx2 = /^[1-9]\d{9}$/;
 
-          if (name == "") {
-          alert("Name must be filled out");
-          return false;
-          }
-          if (text1 == "") {
-          alert("Phone No must be filled out");
-          return false;
-          }
-           if (text2 == "") {
-          alert("Aadhar No must be filled out");
-          return false;
-          }
-           if (photo == "") {
-          alert("photo must be filled out");
-          return false;
-          }
+<head> {% load static%}
+  <title>Create_Customer</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="{% static 'Create_Customer.css' %}">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script type="text/javascript">
+    function validate() {
+      var name = document.getElementById("name").value;
+      var text1 = document.getElementById("text1").value;
+      var text2 = document.getElementById("text2").value;
+      var photo = document.getElementById("photo").value;
+      var regx = /^[6-9]\d{9}$/;
+      var regx2 = /^[1-9]\d{9}$/;
 
-          if(regx.test(text1))
-          {
-              document.getElementById("lbltext").innerHTML="valid";
-              document.getElementById("lbltext").style.visibility="visible";
-              document.getElementById("lbltext").style.color="green";
-          }
-          else
-          {
-              document.getElementById("lbltext").innerHTML="Invalid";
-              document.getElementById("lbltext").style.visibility="visible";
-              document.getElementById("lbltext").style.color="red";
-          }
-          if(regx2.test(text2))
-          {
-              document.getElementById("lbltext2").innerHTML="valid";
-              document.getElementById("lbltext2").style.visibility="visible";
-              document.getElementById("lbltext2").style.color="green";
-          }
-          else
-          {
-              document.getElementById("lbltext2").innerHTML="Invalid";
-              document.getElementById("lbltext2").style.visibility="visible";
-              document.getElementById("lbltext2").style.color="red";
-          }
+      if (name == "") {
+        alert("Name must be filled out");
+        return false;
       }
+      if (text1 == "") {
+        alert("Phone No must be filled out");
+        return false;
+      }
+      if (text2 == "") {
+        alert("Aadhar No must be filled out");
+        return false;
+      }
+      if (photo == "") {
+        alert("photo must be filled out");
+        return false;
+      }
+
+      if (regx.test(text1)) {
+        document.getElementById("lbltext").innerHTML = "valid";
+        document.getElementById("lbltext").style.visibility = "visible";
+        document.getElementById("lbltext").style.color = "green";
+      }
+      else {
+        document.getElementById("lbltext").innerHTML = "Invalid";
+        document.getElementById("lbltext").style.visibility = "visible";
+        document.getElementById("lbltext").style.color = "red";
+      }
+      if (regx2.test(text2)) {
+        document.getElementById("lbltext2").innerHTML = "valid";
+        document.getElementById("lbltext2").style.visibility = "visible";
+        document.getElementById("lbltext2").style.color = "green";
+      }
+      else {
+        document.getElementById("lbltext2").innerHTML = "Invalid";
+        document.getElementById("lbltext2").style.visibility = "visible";
+        document.getElementById("lbltext2").style.color = "red";
+      }
+    }
   </script>
-  </head>
-  <body class="backg">
-      <header>
-          <h2>Customer Creation Form</h2>
-      </header>
-    <div class="container">
-        <form name="create_form" method="POST" action="register">
-          {% csrf_token %}
-            <div class="form-group row">
-              <div class="col-xs-4">
-                <label>Name</label>
-                <input  type="text" class="form-control" name="htmlname" id="hname" placeholder="Enter name">
-              </div>  
-            </div>
-             <div class="form-group row">
+</head>
+
+<body class="backg">
+  <header>
+    <h2>Customer Creation Form</h2>
+  </header>
+  <div class="container">
+    {% if messages %}
+    <div class="col-6">
+      {% for message in messages %}
+      <!-- <div id="alert" class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert"  ><h5><strong> {{ message }}</strong></h5></div> -->
+      <h4>{{message}}</h4>
+      {% endfor %}
+      {% endif %}
+      <div class="col">
+        <div class="card text-center" style="width: 25rem;">
+          <div class="card-body">
+            <form name="create_form" method="POST" action="{% url 'createcustomer' %}">
+              {% csrf_token %}
+              <div class="form-group row">
                 <div class="col-xs-4">
-                    <label for="exampleInputPassword1">Aadhar No &nbsp; &nbsp;<label id="lbltext2" style="color: red; visibility:hidden">Invalid</label></label>
-                    <input type="number" class="form-control" name="htmlaadhar"id="haadhar_NO" placeholder="Enter Aadhar No">
+                  <label>Name</label>
+                  <input type="text" class="form-control" name="htmlname" id="hname" placeholder="Enter name">
                 </div>
-            </div>
-                
-            <div class="form-group row">
-              <div class="col-xs-4">
-                  <label for="exampleInputPassword1">Phone No &nbsp; &nbsp; <label id="lbltext" style="color: red; visibility:hidden">Invalid</label> </label>
-                  <input type="number" class="form-control" name="htmlphone" id="hphone_No" placeholder="Enter Phone No">
-                  <label id="lbltext" style="color: red; visibility:hidden">Invalid</label>
               </div>
-            </div>           
-            <div class="form-group row">
+              <div class="form-group row">
                 <div class="col-xs-4">
-                    <label for="exampleInputPassword1">Photo</label>
-                    <br>
-                    <input type="file"  name="htmlphoto" id="hphoto" placeholder="Upload Photo">
+                  <label for="exampleInputPassword1">Aadhar No &nbsp; &nbsp;<label id="lbltext2"
+                      style="color: red; visibility:hidden">Invalid</label></label>
+                  <input type="number" class="form-control" name="htmlaadhar" id="haadhar_NO"
+                    placeholder="Enter Aadhar No">
                 </div>
-            </div>
-            <input type="submit" class="btn btn-primary" value="Submit">
-            <a href="/" class="btn btn-primary" role="submit">Cancel</a>
-          </form>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-xs-4">
+                  <label for="exampleInputPassword1">Phone No &nbsp; &nbsp; <label id="lbltext"
+                      style="color: red; visibility:hidden">Invalid</label> </label>
+                  <input type="number" class="form-control" name="htmlphone" id="hphone_No"
+                    placeholder="Enter Phone No">
+                  <label id="lbltext" style="color: red; visibility:hidden">Invalid</label>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-xs-4">
+                  <label for="exampleInputPassword1">Photo</label>
+                  <br>
+                  <input type="file" name="htmlphoto" id="hphoto" placeholder="Upload Photo">
+                </div>
+              </div>
+              <input type="submit" class="btn btn-primary" value="Submit">
+              <a href="/" class="btn btn-primary" role="submit">Cancel</a>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
-    
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  </body>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"></script>
+</body>
 </html>

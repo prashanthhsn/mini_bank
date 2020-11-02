@@ -1,21 +1,21 @@
 from django.db import models
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404,redirect
 
 class All_Customer(models.Model):
-    Date = models.DateField()
+    Date = models.DateField(auto_now=True)
     Name = models.CharField(max_length= 25)
     Account_No = models.CharField(primary_key=True,editable=False,blank=False,max_length=13)
     Photo = models.ImageField(upload_to ='media' )
     Aadhar_No = models.CharField(max_length=14)
     Phone_No = models.CharField(max_length=10)
     
-    def save(self,*args,**kwargs):
-        ph = str(self.Phone_No)
-        ph = ph[-2:]
-        d = str(self.Date)
-        d = d.replace("-","")   #to eliminate hyphen and concatenate
-        self.Account_No = d + str(ph)   
-        super(All_Customer, self).save(*args, **kwargs)
+    # def save(self,*args,**kwargs):
+    #     ph = str(self.Phone_No)                   ''' to create a account from admin site, need to uncomment this and comment views logic'''                                                                        
+    #     ph = ph[-2:]
+    #     d = str(self.Date)
+    #     d = d.replace("-","")   #to eliminate hyphen and concatenate
+    #     self.Account_No = d + str(ph)   
+    #     super(All_Customer, self).save(*args, **kwargs)
     
     def __str__(self):
         return (self.Account_No+" "+self.Name)

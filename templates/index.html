@@ -1,93 +1,126 @@
 <!doctype html>
 <html lang="en">
-  <head> {%load static%}
-    <title>Bank</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{% static 'index.css' %}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-   </head>
-  <body class="backg">
-    
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col">
-          <a href="/" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Main</a>
-        </div>
-        <div class="col">
-          <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Credit</a>
-        </div>
-        <div class="col">
-          <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Savings</a>
-        </div>
-        <div class="col">
-          <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Chit Fund</a>
-        </div>
-        <div class="col">
-          <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">About</a>
-        </div>
+
+<head> {%load static%}
+  <title>Bank</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="{% static 'index.css' %}">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body class="backg">
+  {% if messages %}
+  <!-- <div class="col-6"> -->
+  {% for message in messages %}
+  <!-- <div id="alert" class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert"  ><h5><strong> {{ message }}</strong></h5></div> -->
+  <h4>{{message}}</h4>
+  {% endfor %}
+  {% endif %}
+
+
+  <div class="container-fluid">
+    <h3>
+      <p class="badge badge-warning">Hello,{{request.user}}</p>
+    </h3>
+    <div class="row">
+      <div class="col">
+        <a href="/" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Main</a>
+      </div>
+      <div class="col">
+        <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Credit</a>
+      </div>
+      <div class="col">
+        <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Savings</a>
+      </div>
+      <div class="col">
+        <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Chit Fund</a>
+      </div>
+      <div class="col">
+        <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">About</a>
+      </div>
+      <div class="col">
+        <a href="/logout" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Logout</a>
       </div>
     </div>
+  </div>
 
-    <div class="container-sm">
-      <div class="row">
-        <div class="col-md-4">
-          <a href="createcustomer" class="btn btn-primary btn-lg" tabindex="-1" role="button" aria-disabled="true">Create Customer</a>
-        </div>
+  <div class="container-sm">
+    <div class="row">
+      <div class="col-md-4">
+        <a href="createcustomer" class="btn btn-primary btn-lg" tabindex="-1" role="button" aria-disabled="true">Create
+          Customer</a>
       </div>
     </div>
+  </div>
 
-    <div class="container-xs">
-      <div class="row">
-        <div class="col-6 col-sm-4">
-          <button type="button" class="btn btn-secondary">Import</button>
-        </div>
-        <br>
-        <br>
-        <br>
-        <div class="w-100 d-none d-md-block"></div>
-        <div class="col-6 col-sm-4">
-          <button type="button" class="btn btn-secondary">Export</button>
-        </div>
+  <div class="container-xs">
+    <div class="row">
+      <div class="col-6 col-sm-4">
+        <button type="button" class="btn btn-secondary">Import</button>
+      </div>
+      <br>
+      <br>
+      <br>
+      <div class="w-100 d-none d-md-block"></div>
+      <div class="col-6 col-sm-4">
+        <button type="button" class="btn btn-secondary">Export</button>
       </div>
     </div>
+  </div>
 
-    <div class="container-md">
-      <div class="row">
-        <div class="col"><div class="card text-center" style="width: 18rem;">
+  <div class="container-md">
+    <div class="row">
+      <div class="col">
+        <div class="card text-center" style="width: 18rem;">
           <div class="card-body">
             <h5 class="card-title">Total number of customers</h5>
             <h4>{{count}}</h4>
           </div>
-        </div></div>
-        <div class="col"><div class="card text-center" style="width: 18rem;">
+        </div>
+      </div>
+      <div class="col">
+        <div class="card text-center" style="width: 18rem;">
           <div class="card-body">
             <h5 class="card-title">Total Savings</h5>
             <h4>{{total_savings}}</h4>
           </div>
-        </div></div>
-        <div class="col"><div class="card text-center" style="width: 18rem;">
+        </div>
+      </div>
+      <div class="col">
+        <div class="card text-center" style="width: 18rem;">
           <div class="card-body">
             <h5 class="card-title">Total credit</h5>
             <h4>{{total_credit}}</h4>
           </div>
-        </div></div>
-        <div class="col"><div class="card text-center" style="width: 18rem;">
+        </div>
+      </div>
+      <div class="col">
+        <div class="card text-center" style="width: 18rem;">
           <div class="card-body">
             <h5 class="card-title">Total Chits</h5>
             <h4>{{total_batches}}</h4>
           </div>
-        </div></div>
+        </div>
       </div>
     </div>
-    
+  </div>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  </body>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+</body>
+
 </html>
