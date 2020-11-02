@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from .models import All_Customer, Saving_Customer, Credit_Customer, Chit_Batches
-from .forms import All_CustomerForm
 
 # Create your views here.
 def homepage(request):
@@ -26,9 +25,22 @@ def homepage(request):
     context = {"count" : count, "total_savings" : total_savings, "total_credit" : total_credit, "total_batches" : total_batches}
     return render(request,'index.html',context)
 
-def createcustomer(request):
-    form = All_CustomerForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-    context= {'form': form }
-    return render(request,'Create_Customer.html',context)
+def customercreation(request):
+    if request.method == 'POST':
+        name = request.POST['hname']
+        aadhar_no = request.POST['haadhar']
+        phone_no = request.POST['hphone']
+        photo = request.POST['hphoto']
+        if All_Customer.objects.filter(Name = name).exists():
+            messages.error(request, 'Name is already present')
+        elif All_Customer.objects.filter(Aadhar_No = aadhar_no).exists():
+            messages.error(request, 'Aadhar_No is already present')
+        elif All_Customer.objects.filter(Phone_No = phone_no).exists():
+            messages.error(request, 'Phone_No is already present')
+        else:
+            customer = All_Customer.objects.create_user(Name=name, Aadhar_No=aadhar_no, Phone_No=phone_no, Photo=photo)
+            customer.save()
+            messages.success(request, 'Customer created!')
+            return redirect('/')
+    else:
+        return render(request,'createcustomer.html')

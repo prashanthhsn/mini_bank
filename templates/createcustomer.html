@@ -71,34 +71,31 @@
             <div class="form-group row">
               <div class="col-xs-4">
                 <label>Name</label>
-                <input  type="text" class="form-control" id="name" placeholder="Enter name">
+                <input  type="text" class="form-control" name="htmlname" id="hname" placeholder="Enter name">
               </div>  
             </div>
              <div class="form-group row">
                 <div class="col-xs-4">
                     <label for="exampleInputPassword1">Aadhar No &nbsp; &nbsp;<label id="lbltext2" style="color: red; visibility:hidden">Invalid</label></label>
-                    <input type="number" class="form-control" id="text2" placeholder="Enter Aadhar No">
-                    
+                    <input type="number" class="form-control" name="htmlaadhar"id="haadhar_NO" placeholder="Enter Aadhar No">
                 </div>
             </div>
                 
             <div class="form-group row">
               <div class="col-xs-4">
                   <label for="exampleInputPassword1">Phone No &nbsp; &nbsp; <label id="lbltext" style="color: red; visibility:hidden">Invalid</label> </label>
-                  <input type="number" class="form-control" id="text1" placeholder="Enter Phone No">
+                  <input type="number" class="form-control" name="htmlphone" id="hphone_No" placeholder="Enter Phone No">
                   <label id="lbltext" style="color: red; visibility:hidden">Invalid</label>
               </div>
-            </div>
-            
+            </div>           
             <div class="form-group row">
                 <div class="col-xs-4">
                     <label for="exampleInputPassword1">Photo</label>
                     <br>
-                    <input type="file"  id="photo" placeholder="Upload Photo">
+                    <input type="file"  name="htmlphoto" id="hphoto" placeholder="Upload Photo">
                 </div>
             </div>
-            
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <input type="submit" class="btn btn-primary" value="Submit">
             <a href="/" class="btn btn-primary" role="submit">Cancel</a>
           </form>
     </div>
