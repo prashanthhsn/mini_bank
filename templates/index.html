@@ -14,9 +14,7 @@
 
 <body class="backg">
   {% if messages %}
-  <!-- <div class="col-6"> -->
   {% for message in messages %}
-  <!-- <div id="alert" class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert"  ><h5><strong> {{ message }}</strong></h5></div> -->
   <h4>{{message}}</h4>
   {% endfor %}
   {% endif %}

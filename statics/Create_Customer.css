@@ -2,10 +2,11 @@
     background-color:  #ccccff;  
 }
 
-.container {
-    padding-top: 120px;
-    display: flex;
-    justify-content: center;
+.container{
+   margin-right: auto;
+   margin-left: auto;
+   margin-top: auto;
+   margin-bottom: auto;
 }
 
 /* For Chorme, Opera, Safari */
@@ -26,6 +27,7 @@ h2 {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.card {
-  margin-right: 30px;
+.form {
+  margin-top: 50px;
 }
+
