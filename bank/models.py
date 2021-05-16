@@ -5,7 +5,7 @@ class All_Customer(models.Model):
     Date = models.DateField(auto_now=True)
     Name = models.CharField(max_length= 25)
     Account_No = models.CharField(primary_key=True,editable=False,blank=False,max_length=13)
-    Photo = models.ImageField(upload_to ='media' )
+    Photo = models.ImageField(upload_to ='media')
     Aadhar_No = models.CharField(max_length=14)
     Phone_No = models.CharField(max_length=10)
     
@@ -34,7 +34,7 @@ class Chit_Batches(models.Model):
 class Saving_Customer(models.Model):
     Date_Credited = models.DateField(auto_now=True,editable=False)
     Name = models.CharField(editable=False,blank=True,max_length= 25)
-    Select_Account_No = models.ForeignKey(All_Customer , on_delete = models.CASCADE)
+    Select_Account_No = models.ForeignKey(All_Customer , on_delete = models.CASCADE, default='')
     Account_No =  models.IntegerField(editable=False)
     Total_Savings= models.IntegerField(default= 0, blank= True)
 
@@ -52,7 +52,7 @@ class Saving_Customer(models.Model):
 class Credit_Customer(models.Model):
     Date_Credited = models.DateField(auto_now=True,editable=False)
     Name = models.CharField(editable=False,blank=True,max_length= 25)
-    Select_Account_No = models.ForeignKey(All_Customer , on_delete = models.CASCADE)
+    Select_Account_No = models.ForeignKey(All_Customer , on_delete = models.CASCADE, default='')
     Account_No =  models.IntegerField(editable=False)
     Total_Credit= models.IntegerField(default= 0, blank= True)
     Interest_Rate = models.IntegerField(default=0)
@@ -78,11 +78,11 @@ class Chit_Fund_Customer(models.Model):
         return self.Name
 
 class Savings_Customer_Savings(models.Model):
-    Date = models.DateField()
+    Date = models.DateField(auto_now=True)
     Account_No = models.IntegerField()
     Amount_Deposited = models.IntegerField()
 
 class Credit_Customer_Credit(models.Model):
-    Date = models.DateField()
+    Date = models.DateField(auto_now=True)
     Account_No = models.IntegerField()
     Amount_Credited = models.IntegerField()

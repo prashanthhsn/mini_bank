@@ -13,4 +13,6 @@ urlpatterns = [
                 'site_title' : 'Login page',
             })),
     path('logout/', views.logout),
+    path('import_file/', views.import_file, name='import_file'),
+    path('details/<str:option>/', views.details),
 ]

@@ -1,9 +1,14 @@
 from django.shortcuts import render,redirect
-from .models import All_Customer, Saving_Customer, Credit_Customer, Chit_Batches
+from .models import All_Customer, Saving_Customer, Credit_Customer, Savings_Customer_Savings, Credit_Customer_Credit,Chit_Batches
 from django.contrib import messages
 from datetime import date
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth
+from pandas import read_excel
+from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+from django.contrib.staticfiles import finders
 
 # Create your views here.
 @login_required(login_url='/login')
@@ -61,3 +66,46 @@ def customercreation(request):
 def logout(request):
     auth.logout(request)
     return redirect("/")
+
+def import_file(request):
+    if request.method == 'POST' and request.FILES['excel_file']:
+        imp_file =  request.FILES["excel_file"]
+        data = read_excel(imp_file)
+        for i in range(len(data)):
+            Acc_no = data["Account_No"][i]
+            if data["Amount_Deposited"][i] != 0:
+                Amt_Dep = data["Amount_Deposited"][i]
+                Savings_Customer_Savings.objects.create(Account_No=Acc_no, Amount_Deposited=Amt_Dep)
+            else:
+                Amt_Cred = data["Amount_Credited"][i]
+                Credit_Customer_Credit.objects.create(Account_No=Acc_no, Amount_Credited=Amt_Cred)
+    return redirect("/")
+
+def details(request,option):
+    response ={}
+    if option == 'savings':
+        savings_obj = Saving_Customer.objects.all()
+        response["details"]=savings_obj
+    else:
+        credits_obj = Credit_Customer.objects.all()
+        response["details"]=credits_obj
+    response['option'] = option.capitalize()    
+    return render(request, 'details.html',response)
+
+def render_pdf_view(request):
+    template_path = 'user_printer.html'
+    context = {'myvar': 'this is your template context'}
+    # Create a Django response object, and specify content_type as pdf
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+    # find the template and render it.
+    template = get_template(template_path)
+    html = template.render(context)
+
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+       html, dest=response,)
+    # if error then show some funy view
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response

@@ -12,7 +12,5 @@ def amt_inc1(sender, instance, created, **kwargs):
 @receiver(post_save, sender = Credit_Customer_Credit)
 def amt_inc(sender, instance, created, **kwargs):
     Account_data = get_object_or_404(Credit_Customer , Account_No = instance.Account_No)
-    instance.Amount_Credited *= -1
-    Account_data.Total_Credit -= instance.Amount_Credited
-    Account_data.Total_Credit *= -1
+    Account_data.Total_Credit += instance.Amount_Credited
     Account_data.save()
